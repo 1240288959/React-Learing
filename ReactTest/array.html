@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>array</title>
+		<script src="js/react.production.min.js" crossorigin></script>
+		<script src="js/react-dom.production.min.js" crossorigin></script>
+		<script src="js/babel.min.js"></script>
+	</head>
+	<body>
+		<div id = "example"></div>
+	</body>
+	<script type = "text/babel">
+		var arr = [
+			<h1>123</h1>,
+			<h2>123</h2>,
+		];
+		
+		ReactDOM.render(
+			<div>{arr}</div>,
+			document.getElementById("example")
+		)
+	</script>
+</html>

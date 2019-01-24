@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>opacity</title>
+		<script src="js/react.production.min.js" crossorigin></script>
+		<script src="js/react-dom.production.min.js" crossorigin></script>
+		<script src="js/babel.min.js"></script>
+	</head>
+	<body>
+		<div id = 'example'></div>
+	</body>
+	<script type = 'text/babel'>
+		class Opacity extends React.Component {
+			constructor(props) {
+				super(props);
+				this.state = {opacity : 1};
+				this.toggleOpacity = this.toggleOpacity.bind(this);
+			}
+			
+			toggleOpacity(){
+				var oldOpacity = this.state.opacity;
+				var newOpactiy = 1;
+				if(oldOpacity < 0.1) {
+					newOpactiy = 1;
+				} else {
+					newOpactiy = oldOpacity - 0.05;
+				}
+				
+				this.setState({
+					opacity : newOpactiy
+				});
+				
+			}
+			
+			componentDidMount() {
+				this.timer = setInterval(() => {
+					this.toggleOpacity();
+				},100);
+			}
+				
+			componentWillUnmount() {
+				clearInterval(this.timer);
+			}
+			
+			render() {
+				return (
+					<div style = {{opacity : this.state.opacity}}>
+						Hello,World!
+					</div>
+				);
+			}
+		}
+		
+		ReactDOM.render(
+			<Opacity />,
+			document.getElementById('example')
+		);
+	</script>
+</html>

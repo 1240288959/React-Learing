@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>阻止组件渲染</title>
+		<script src="js/react.production.min.js" crossorigin></script>
+		<script src="js/react-dom.production.min.js" crossorigin></script>
+		<script src="js/babel.min.js"></script>
+		<style>
+			button {
+				height : 40px;
+				width: 200px;
+			}
+			
+			.warning {
+				background-color : red;
+				text-align: center;
+				width: 100%;
+				padding: 10px;
+				
+				font-size: 14pt;
+				color: white;
+			}
+		</style>
+	</head>
+	<body>
+		<div id = 'example'></div>
+	</body>
+	<script type = 'text/babel'>
+		function WarningBunner (props) {
+			if(!props.isShow)
+				return null;
+			return (
+				<div className = 'warning'> 警告! </div>
+			);
+		}
+		
+		class ToggleButton extends React.Component {
+			constructor(props) {
+				super(props);
+				this.state = {isToggleOn : true};
+				this.handleClick = this.handleClick.bind(this);
+			}
+			
+			handleClick() {
+				this.setState(prevState => ({
+					isToggleOn : !prevState.isToggleOn
+				}));
+			}
+			
+			render() {
+				return (
+					<div>
+						<WarningBunner isShow = {this.state.isToggleOn} />
+						<button onClick = {this.handleClick}>{this.state.isToggleOn ? 'on' : 'off'}</button>
+					</div>
+				);
+			}
+		}
+		
+		ReactDOM.render(
+			<ToggleButton />,
+			document.getElementById('example')
+		);
+	</script>
+</html>
