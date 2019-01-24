@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>loginControl</title>
+		<script src="js/react.production.min.js" crossorigin></script>
+		<script src="js/react-dom.production.min.js" crossorigin></script>
+		<script src="js/babel.min.js"></script>
+	</head>
+	<body>
+		<div id = 'example'></div>
+	</body>
+	<script type = 'text/babel'>
+		class Greet extends React.Component {
+
+			render() {
+				if(this.props.isToggleOn) {
+					return <UserGreeting />;
+				}
+				return <GuestGreeting />;
+			}
+		}
+		
+		class UserGreeting extends React.Component {
+			render(){
+				return (
+					<h1>欢迎光临</h1>
+				);
+			};
+		}
+		
+		class GuestGreeting extends React.Component {
+			render() {
+				return (
+					<h1>请先登录</h1>	
+				);
+			};
+		}
+		
+		function LoginButton(props) {
+			return (<button onClick = {props.onClick}> 登录 </button>);
+		}
+		
+		function LogoutButton(props) {
+			return (<button onClick = {props.onClick}> 登出 </button>);
+		}
+		
+		class LogControl extends React.Component {
+			constructor(props){
+				super(props);
+				this.state = {isToggleOn : true};
+				this.handleClick = this.handleClick.bind(this);
+			}
+			
+			handleClick() {
+				this.setState(prevState => ({
+					isToggleOn : !prevState.isToggleOn
+				}));
+			}
+			
+			render() {
+				const isLogin = this.state.isToggleOn;
+				
+				let button;
+				
+				if(isLogin) {
+					button = <LoginButton onClick = {this.handleClick} />;
+				} else {
+					button = <LogoutButton onClick = {this.handleClick} />;
+				}
+				
+				return (
+					<div>
+						<Greet isToggleOn = {this.state.isToggleOn} />
+						{button}
+					</div>
+				);
+			}
+		}
+		
+		ReactDOM.render(
+			<LogControl />,
+			document.getElementById('example')
+		);
+	</script>
+</html>

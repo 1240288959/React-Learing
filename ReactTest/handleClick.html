@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>handleClick</title>
+		<script src="js/react.production.min.js" crossorigin></script>
+		<script src="js/react-dom.production.min.js" crossorigin></script>
+		<script src="js/babel.min.js"></script>
+	</head>
+	<body>
+		<div id = "example"></div>
+	</body>
+	<script type = "text/babel">
+		class Toggle extends React.Component {
+			constructor(props) {
+				super(props);
+				this.state = { isToggleOn : this.props.isToggleOn};
+				this.handleClick = this.handleClick.bind(this);
+			}
+			
+		    handleClick() {
+			    this.setState(prevState => ({
+			      isToggleOn: !prevState.isToggleOn
+			    }));
+		    }
+		    
+			render(){
+				return (
+					<div>
+						<button onClick = {this.handleClick}>{this.state.isToggleOn ? 'on' : 'off'}</button>
+					</div>
+				);
+			}
+		}
+		
+		ReactDOM.render(
+			<Toggle isToggleOn = {false} />,
+			document.getElementById('example')
+		)
+	</script>
+</html>
